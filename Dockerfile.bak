@@ -1,8 +1,0 @@
-FROM mintplexlabs/anythingllm 
-
-USER 0
-COPY "./init.sh" "/usr/local/bin/init.sh"
-RUN chmod +x "/usr/local/bin/init.sh" 
-
-ENTRYPOINT ["/bin/bash", "/usr/local/bin/init.sh"]
-
