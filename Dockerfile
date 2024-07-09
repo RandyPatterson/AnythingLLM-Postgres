@@ -152,17 +152,6 @@ WORKDIR /app/collector
 ENV PUPPETEER_DOWNLOAD_BASE_URL=https://storage.googleapis.com/chrome-for-testing-public 
 RUN yarn install --production --network-timeout 100000 && yarn cache clean
 
-# Migrate and Run Prisma against known schema
-#ENV DATABASE_URL=postgresql://azureuser:mArryhaDAl1ttl3lamB@anything-llm-db.postgres.database.azure.com:5432/postgres&sslmode=require
-#WORKDIR /app/server
-#RUN npx prisma generate --schema=./prisma/schema.prisma && \
-#    npx prisma migrate deploy --schema=./prisma/schema.prisma
-#WORKDIR /app
-
-COPY ./init.sh /usr/local/bin/init.sh
-RUN chmod +x /usr/local/bin/init.sh
-
-#COPY ./.env /app/server/.env
 
 # Setup the environment
 ENV NODE_ENV=production
@@ -177,18 +166,4 @@ HEALTHCHECK --interval=1m --timeout=10s --start-period=1m \
 
 RUN apt install sqlite3
 
-# Start and enable SSH
-# RUN apt-get update \
-#     && apt-get install -y --no-install-recommends dialog \
-#     && apt-get install -y --no-install-recommends openssh-server \
-#     && echo "root:Docker!" | chpasswd 
-
-# COPY sshd_config /etc/ssh/
-
-# EXPOSE 8000 2222
-
-
-
-# Run the server
-#ENTRYPOINT ["/bin/bash", "/usr/local/bin/init.sh"]
 ENTRYPOINT ["/bin/bash", "/usr/local/bin/docker-entrypoint.sh"]
