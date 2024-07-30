@@ -1,0 +1,1 @@
+# AnythingLLM configured for PostGresSQL
